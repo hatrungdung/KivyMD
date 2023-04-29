@@ -17,7 +17,11 @@ float roundedBoxSDF(vec2 centerPosition, vec2 size, vec4 radius) {
     vec2 q = abs(centerPosition) - (size - shadow_softness) + radius.x;
     return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - radius.x;
 }
+float smoothstep(float a, float b, float x) {
+    float t = clamp((x - a) / (b - a), 0.0, 1.0);
 
+    return t * t * (3.0 - (2.0 * t));
+}
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     // Smooth the result (free antialiasing).
     float edge0 = 0.0;
